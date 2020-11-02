@@ -4,7 +4,7 @@ from json import loads
 CNN = 'cnn'
 DEFAULT_SOURCES = [CNN]
 SORT_BY_TOP = 'top'
-NEWS_API_KEY = '715e9632a2a94ea1a4546e3f314a76a5'
+NEWS_API_KEY = '68692dceeaff48139b7728d1175d2686'
 NEWS_API_ENDPOINT = "https://newsapi.org/v1/"
 ARTICLES_API = "articles"
 
