@@ -1,5 +1,5 @@
-# Tap-News-System
-This is a real-time news scraping and recommendation system implemented as a single-page application. The system uses a news pipeline to scrape latest news from various of sources such CNN, BBC. The front end is bootstrapped with React. To customize the news and perform recommendation, a training pipeline for news topic modeling was implemented at the back-end with Tensorflow. In particular, the backend services includes RESTful servers and RPC servers, a MongoDB database, a news scraper using Python Scrapy package as well as multiple cloud RabbitMQ message queues.
+# Global News Recommendation System
+This is an recommendation system based on web scraping technology and NLP. The system uses a news pipeline to scrape latest news from various of sources such CNN, BBC. The front end is bootstrapped with React. To customize the news and perform recommendation, a training pipeline for news topic modeling was implemented at the back-end with Tensorflow. In particular, the backend services includes RESTful servers and RPC servers, a MongoDB database, a news scraper using Python Scrapy package as well as multiple cloud RabbitMQ message queues.
 
 * Services provided
     - News Pipeline (obtaining news, deduping news and inserting news to database)
@@ -51,7 +51,7 @@ A click log processor is built to implement a time decay model. If a news topic 
 
 ### Authors
 
-* **Zhekai Jin**
+* **Dixin Sun**
 
 
 
