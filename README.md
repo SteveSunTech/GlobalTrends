@@ -33,9 +33,32 @@ python service.py # or python3
 
 
 ## Overall Architecture
-![tap-news](https://user-images.githubusercontent.com/13974845/44027389-f0385b1a-9f28-11e8-8b2a-6def3ad1e189.png)
+* Fort-end Service handles all external interactions
+* Back-end implements one protocol to talk to front-end
+* All clients see same business abstraction
+* Consistent business logic enforcement
+* Easy internal refactoring
 
-## System Break-down
+![SOA Structure](image/SOA_structure.png)
+
+## RPC Backend Service
+
+```
+
+|| Client ||  || Node Server ||  || Backend Server ||  || Redis || || MongoDB ||  || ML Server ||
+    |                 |                 | Check if in Redis  |            |              |
+    |---------------> |                 |<------------------>|            |              |
+    | fetch more news |---------------->|    (If not) get news from DB    |              |                 
+    |(userID/ pageNum)| getNewsSunmmaire|<------------------------------->|              |
+    |                 | sForUser        |       Get Recommended news from ML server      |
+    |<----------------|(userID /pageNum)|<---------------------------------------------->|
+    | Sliced News     |                 |Store combined news |            |              |                   
+    |                 |<----------------|       in Redis     |            |              |
+    |                 | Sliced News     |------------------->|            |              |
+    |                 |                 |                    |            |              |
+|| Client ||  || Node Server ||  || Backend Server ||  || Redis || || MongoDB ||  || ML Server ||
+
+```
 
 ### News Pipeline  
 News pipeline consists news monitor, web scraper and news deduper, news is sent and received between them by RabbitMQ which decouples these components. The news monitor use [News API](https://newsapi.org) to derive latest news and store news title MD5 digest into Redis to avoid sending same news to the message queue. The web scraper use a third party package [Newspaper](https://newspaper.readthedocs.io/en/latest/) to fetch corresponding news articles from offical news website. News depuper implements TF-IDF to calculate similarity of news to avoid storing same news from different news source into MongoDB. For similar news, only store the one published firstly.  
